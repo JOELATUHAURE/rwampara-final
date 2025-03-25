@@ -23,7 +23,7 @@ const Header = () => {
             <h1 className="text-2xl font-bold text-gray-900">RWAMPARA SUITES</h1>
           </div>
 
-          {/* Desktop Menu */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <nav className="flex space-x-6">
               {navLinks.map((link) => (
@@ -38,7 +38,10 @@ const Header = () => {
                 </Link>
               ))}
             </nav>
-            <a href="tel:+256780844955" className="flex items-center text-gray-700 hover:text-gray-900">
+            <a
+              href="tel:+256780844955"
+              className="flex items-center text-gray-700 hover:text-gray-900"
+            >
               <Phone className="h-5 w-5 mr-2" />
               <span>+256 780 844 955</span>
             </a>
@@ -46,40 +49,33 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-gray-700 hover:text-gray-900">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-gray-700 hover:text-gray-900"
+            >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-50" onClick={() => setIsMenuOpen(false)}>
-          <div className="fixed top-0 left-0 w-3/4 h-full bg-white shadow-lg p-6">
-            <button
+      {/* Mobile Navigation (Fixing Visibility) */}
+      <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'} bg-white shadow-lg p-4`}>
+        <nav className="flex flex-col space-y-4">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              to={link.href}
+              smooth={true}
+              duration={500}
+              className="cursor-pointer text-gray-700 hover:text-gray-900 text-lg font-medium transition-colors"
               onClick={() => setIsMenuOpen(false)}
-              className="absolute top-4 right-4 text-gray-700 hover:text-gray-900"
             >
-              <X className="h-6 w-6" />
-            </button>
-            <nav className="mt-8 flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  smooth={true}
-                  duration={500}
-                  className="cursor-pointer text-gray-700 hover:text-gray-900 text-lg font-medium transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </nav>
-          </div>
-        </div>
-      )}
+              {link.name}
+            </Link>
+          ))}
+        </nav>
+      </div>
     </header>
   );
 };
